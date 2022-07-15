@@ -22,7 +22,6 @@ import './Monsters.scss';
 
 function Monsters() {
   const [monsters, setMonsters] = useState([]);
-  const [userInput, setUserInput] = useState('');
 
   // 데이터 로딩
   useEffect(() => {
@@ -32,15 +31,24 @@ function Monsters() {
   }, []);
 
   // SearchBox 에 props로 넘겨줄 handleChange 메소드 정의
-  const handleChange = () => {
-    setUserInput(userInput);
+  const [userInput, setUserInput] = useState('');
+  const handleChange = (e) => {
+    setUserInput(e.target.value);
   };
+
+  // SearchBox 검색 기능
+  /* monsters배열에서 각 monster의 name과 searchbox에 들어온 input값인 userInput과 비교하여
+  일치하는 monster만 filteredMonster 배열에 담아준다.
+  소문자로 변환해주는 이유? 대,소문자 구분없이 비교하기 위해 */
+  const filteredMonster = monsters.filter((monster) => {
+    return monster.name.toUpperCase().includes(userInput.toUpperCase());
+  });
 
   return (
     <div className='monsters'>
       <h1>컴포넌트 재사용 연습!</h1>
       <SearchBox handleChange={handleChange} />
-      <CardList monsters={monsters} />
+      <CardList monsters={filteredMonster} />
     </div>
   );
 }

@@ -13,8 +13,8 @@ function CardList({ monsters }) {
   console.log(monsters);
   return (
     <div className='cardList'>
-      {monsters.map(({ id, name, email }) => {
-        return <Card id={id} name={name} email={email} />;
+      {monsters.map(({ id, name, website }) => {
+        return <Card key={id} id={id} name={name} website={website} />;
       })}
     </div>
   );

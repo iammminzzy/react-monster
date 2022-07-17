@@ -1,9 +1,18 @@
-.search {
-  -webkit-appearance: none;
-  border: none;
-  outline: none;
-  padding: 10px;
-  width: 150px;
-  line-height: 30px;
-  margin-bottom: 30px;
+form {
+  .search {
+    -webkit-appearance: none;
+    border: none;
+    outline: none;
+    padding: 10px;
+    width: 150px;
+    line-height: 30px;
+    margin-bottom: 30px;
+  }
+
+  .searchButton {
+    border: none;
+    outline: none;
+    padding: 17px;
+    cursor: pointer;
+  }
 }

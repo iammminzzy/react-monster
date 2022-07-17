@@ -1,14 +1,20 @@
 import React from 'react';
 import './SearchBox.scss';
 
-function SearchBox({ handleChange }) {
+function SearchBox({ userInput, handleChange, searchingMonster }) {
   return (
-    <input
-      className='search'
-      type='search'
-      placeholder='Search...'
-      onChange={handleChange}
-    />
+    <form>
+      <input
+        className='search'
+        type='search'
+        placeholder='Search...'
+        value={userInput}
+        onChange={handleChange}
+      />
+      <button className='searchButton' onClick={searchingMonster}>
+        검색
+      </button>
+    </form>
   );
 }
 

@@ -21,33 +21,44 @@ import './Monsters.scss';
 ***********************************************************/
 
 function Monsters() {
+  const [filteredMonster, setFilteredMonster] = useState([]);
+  const [userInput, setUserInput] = useState('');
   const [monsters, setMonsters] = useState([]);
 
   // 데이터 로딩
   useEffect(() => {
     fetch('https://jsonplaceholder.typicode.com/users')
       .then((res) => res.json())
-      .then((data) => setMonsters(data));
+      .then((data) => {
+        return setMonsters(data), setFilteredMonster(data);
+      });
   }, []);
 
   // SearchBox 에 props로 넘겨줄 handleChange 메소드 정의
-  const [userInput, setUserInput] = useState('');
   const handleChange = (e) => {
     setUserInput(e.target.value);
   };
 
   // SearchBox 검색 기능
-  /* monsters배열에서 각 monster의 name과 searchbox에 들어온 input값인 userInput과 비교하여
-  일치하는 monster만 filteredMonster 배열에 담아준다.
-  소문자로 변환해주는 이유? 대,소문자 구분없이 비교하기 위해 */
-  const filteredMonster = monsters.filter((monster) => {
-    return monster.name.toUpperCase().includes(userInput.toUpperCase());
-  });
+  // 검색 버튼을 눌렀을 때, 작동
+  const searchingMonster = (e) => {
+    e.preventDefault();
+
+    const filtering = monsters.filter((monster) => {
+      return monster.name.toUpperCase().includes(userInput.toUpperCase());
+    });
+    //필터링된 몬스터들만 새로운 state로 관리
+    setFilteredMonster(filtering);
+  };
 
   return (
     <div className='monsters'>
       <h1>컴포넌트 재사용 연습!</h1>
-      <SearchBox handleChange={handleChange} />
+      <SearchBox
+        userInput={userInput}
+        handleChange={handleChange}
+        searchingMonster={searchingMonster}
+      />
       <CardList monsters={filteredMonster} />
     </div>
   );
